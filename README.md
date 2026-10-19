@@ -1,131 +1,67 @@
-# Reflexion Agent with LangGraph 🦜🕸️
+# Agentic RAG with LangGraph 🦜🔍
 
-Implementation of a sophisticated Reflexion agent using LangGraph and LangChain, designed to generate high-quality responses through self-reflection and iterative improvement.
+Implementation of Reflective RAG, Self-RAG & Adaptive RAG tailored towards developers and production-oriented applications for learning LangGraph🦜🕸️.
 
-This project demonstrates advanced AI agent capabilities using LangGraph's state-of-the-art control flow mechanisms for self-reflection and response refinement.
+This repository contains a refactored version of the original [LangChain's Cookbook](https://github.com/mistralai/cookbook/tree/main/third_party/langchain),
 
-```mermaid
----
-config:
-  flowchart:
-    curve: linear
----
-graph LR;
-        __start__([<p>__start__</p>]):::first
-        draft(draft)
-        execute_tools(execute_tools)
-        revise(revise)
-        __end__([<p>__end__</p>]):::last
-        __start__ --> draft;
-        draft --> execute_tools;
-        execute_tools --> revise;
-        revise -.-> draft;
-        revise -.-> execute_tools;
-        revise -.-> __end__;
-        classDef default fill:#f2f0ff,line-height:1.2
-        classDef first fill-opacity:0
-        classDef last fill:#bfb6fc
-```
+See Original YouTube video:[Advance RAG control flow with Mistral and LangChain](https://www.youtube.com/watch?v=sgnrL7yo1TE)
+
+of [Sophia Young](https://x.com/sophiamyang) from Mistral & [Lance Martin](https://x.com/RLanceMartin) from LangChain
+
+
 
 ## Features
 
-- **Self-Reflection**: Implements sophisticated reflection mechanisms for response improvement
-- **Iterative Refinement**: Uses a graph-based approach to iteratively enhance responses
-- **Production-Ready**: Built with scalability and real-world applications in mind
-- **Integrated Search**: Leverages Tavily search for enhanced response accuracy
-- **Structured Output**: Uses Pydantic models for reliable data handling
+- **Refactored Notebooks**: The original LangChain notebooks have been refactored to enhance readability, maintainability, and usability for developers.
+- **Production-Oriented**: The codebase is designed with a focus on production readiness, allowing developers to seamlessly transition from experimentation to deployment.
+- **Test Coverage**: Comprehensive test coverage ensures the reliability and stability of the application, enabling developers to validate their implementations effectively.
+- **Documentation**: Detailed documentation and branches guides developers through setting up the environment, understanding the codebase, and utilizing LangGraph effectively.
 
-## Architecture
 
-The agent uses a graph-based architecture with the following components:
+## What You'll Learn
 
-- **Entry Point**: `draft` node for initial response generation
-- **Processing Nodes**: `execute_tools` and `revise` for refinement
-- **Maximum Iterations**: 2 (configurable)
-- **Chain Components**: First responder and revisor using GPT-4
-- **Tool Integration**: Tavily Search for web research
+- **Agentic RAG Implementation**: Build a system that can make intelligent decisions about retrieving information
+- **Graph-Based Control Flow**: Use LangGraph to create sophisticated control flows for your RAG pipeline
+- **Document Relevance Evaluation**: Implement logic to grade document relevance and detect hallucinations
+- **Adaptive Information Retrieval**: Create a system that can switch between local knowledge and web search
+- **State Management**: Implement proper state handling for complex information flows
+
+##  Structure
+
+
+| No # | Commit | Description | Key Components |
+|------|--------|-------------|----------------|
+| 1    | [**Start Here**] | Introduction to  Agentic RAG concepts | Overview of the project; Introduction to LangGraph and Agentic RAG architecture |
+| 2    | [**Project Structure**] | Setting up the project foundation | Initialize project structure; Configure Poetry for dependency management |
+| 3    | [**Ingestion**] | Setting up the vector database | Create ingestion pipeline; Implement vector store with Chroma and OpenAI embeddings |
+| 4    | [**State**] | Defining the state management | Create GraphState class; Set up typed dictionaries for state tracking |
+| 5    | [**Retrieve Node**] | Implementing the document retrieval | Build retrieve node; Connect retrieval to vector database |
+| 6    | [**Grade Documents Node**] | Evaluating document relevance | Create document grading functionality; Implement decision logic for document relevance |
+| 7    | [**Web Search with Tavily**] | Adding external search capability | Integrate Tavily search API; Implement fallback for insufficient local knowledge |
+| 8    | [**Generation Node**] | Creating the answer generation component | Build generate node; Implement context-aware response generation |
+| 9    | [**Graph**] | Constructing the complete LangGraph workflow | Connect all nodes into workflow; Implement conditional edges for adaptive behavior |
+| 10   | [**Self-RAG**] | Adding self-evaluation capabilities | Implement hallucination detection; Create feedback loops for answer improvement |
+| 11   | [**Router**] | Smart query routing | Create intelligent routing between retrieval and web search; Optimize entry point for different query types |
+| 12   | [**Formatting**] | Final code formatting and cleanup | Code optimization; Final documentation improvements |
 
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file:
 
 ```bash
-TAVILY_API_KEY=your_tavily_api_key_here
+OPENAI_API_KEY=your_openai_api_key_here
+TAVILY_API_KEY=your_tavily_api_key_here  # For web search capabilities
 LANGCHAIN_API_KEY=your_langchain_api_key_here  # Optional, for tracing
 LANGCHAIN_TRACING=true                      # Optional
-LANGCHAIN_PROJECT=reflexion agent               # Optional
+LANGCHAIN_PROJECT=agentic-rag                  # Optional
 ```
 
 
-## Run Locally
 
-Clone the project:
+## Prerequisites
 
-```bash
-git clone <repository-url>
-cd reflexion-agent
-```
-
-Install dependencies:
-
-```bash
- uv sync
-```
-
-Start the agent:
-
-```bash
-uv run python main.py
-```
-
-## Development Setup
-
-1. Get your API keys:
-   - [OpenAI Platform](https://platform.openai.com/) for GPT-4 access
-   - [Tavily](https://tavily.com/) for search functionality
-   - [LangSmith](https://smith.langchain.com/) (optional) for tracing
-
-2. Copy the example environment file:
-   ```bash
-   cp .env.example .env
-   ```
-
-3. Edit `.env` with your API keys
-
-
-
-## Acknowledgements
-
-This project builds upon:
-- [LangGraph](https://langchain-ai.github.io/langgraph/tutorials/reflexion/reflexion/) for agent control flow
-- [LangChain](https://github.com/langchain-ai/langchain) for LLM interactions
-- [Tavily API](https://tavily.com/) for web search capabilities
-
-## Development Timeline
-
-This project follows the structure of the "LangGraph Course" lectures, demonstrating key concepts in building a Reflexion Agent:
-
-1. **[Add initial project structure](https://github.com/emarco177/langgaph-course/commit/338cb56)** -
-   * Set up the foundation with project configuration files (.gitignore, main.py, pyproject.toml, uv.lock)
-   
-2. **[Create chains for AI-powered research functionality](https://github.com/emarco177/langgaph-course/commit/e6dd3fc)** -
-   * Implemented the first component of our agent architecture - the Actor
-   * Added chains.py with prompt templates for generating detailed answers
-   * Created schemas.py with Pydantic models for structured data handling
-   
-3. **[Enhance chains for answer revision capabilities](https://github.com/emarco177/langgaph-course/commit/8c0b27b)** -
-   * Implemented the second component - the Revisor for self-reflection
-   * Added ReviseAnswer class to schemas.py for improved response structure
-   * Updated chain prompts to incorporate critique and citation requirements
-   
-4. **[Add dependencies and tools for graph nodes](https://github.com/emarco177/langgaph-course/commit/a092b97)** - Preparation for Graph Implementation
-   * Integrated search functionality to enhance response accuracy
-   * Added required dependencies for the complete graph workflow
-   
-5. **[Implement the complete message graph](https://github.com/emarco177/langgaph-course/commit/bb79ec6)** - 
-   * Connected Actor and Revisor agents in a complete LangGraph workflow
-   * Defined graph nodes for drafting, tool execution, and revision
-   * Established state management and conditional edge routing for reflection
-   
+- Python 3.10+
+- Basic understanding of LLMs and RAG systems
+- Familiarity with Python and vector databases (helpful but not required)
 
 
