@@ -28,12 +28,12 @@ doc_splits = text_splitter.split_documents(docs_list)
 # vectorstore = Chroma.from_documents(
 #     documents=doc_splits,
 #     collection_name="rag-chroma",
-#     embedding=OpenAIEmbeddings(),
+#     embedding=OllamaEmbeddings(model="embeddinggemma-2:270m"),
 #     persist_directory="./.chroma",
 # )
 
 retriever = Chroma(
     collection_name="rag-chroma",
     persist_directory="./.chroma",
-    embedding_function=OpenAIEmbeddings(),
+    embedding_function=OllamaEmbeddings(model="embeddinggemma-2:270m"),
 ).as_retriever()
