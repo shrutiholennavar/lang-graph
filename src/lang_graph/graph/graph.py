@@ -4,7 +4,7 @@ from langgraph.graph import END, StateGraph
 from .chains.answer_grader import answer_grader
 from .chains.hallucination_grader import hallucination_grader
 from .chains.router import RouteQuery, question_router
-from consts import GENERATE, GRADE_DOCUMENTS, RETRIEVE, WEBSEARCH
+from .consts import GENERATE, GRADE_DOCUMENTS, RETRIEVE, WEBSEARCH
 from .nodes import generate, grade_documents, retrieve, web_search
 from .state import GraphState
 
